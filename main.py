@@ -1,8 +1,8 @@
 """
 Name: Kyaw Soe Naing
-Date:18/1/2020
+Date: 17/1/2020
 Brief Project Description:
-GitHub URL: https://github.com/Ezra2952
+GitHub URL: https://github.com/Ezra2952/assignment-02-Ezra2952
 """
 # TODO: Create your main program in this file, using the MoviesToWatchApp class
 
