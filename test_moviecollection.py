@@ -23,15 +23,23 @@ def run_tests():
     movie_collection.add_movie(Movie("Amazing Grace", 2006, "Drama", False))
     print(movie_collection)
 
-    # Test sorting movies
+    # Test sorting movies by year
     print("Test sorting - year:")
     movie_collection.sort("year")
     print(movie_collection)
-    # TODO: Add more sorting tests
+
+    # Test sorting movies by category
+    print("Test sorting - Category:")
+    movie_collection.sort("category")
+    print(movie_collection)
 
     # TODO: Test saving movies (check CSV file manually to see results)
+    print("Test saving movies")
+    movie_collection.save_movies("movies.csv")
 
     # TODO: Add more tests, as appropriate, for each method
+    print("Unwatched movie counts")
+    print(movie_collection.get_unwatched())
 
 
 run_tests()
