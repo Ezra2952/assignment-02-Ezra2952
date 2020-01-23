@@ -54,7 +54,7 @@ def menu():
 def all_movies():
     count = 0
     for movie in moviecollection.movies:
-        if movie.is_watched == "u":
+        if movie.is_watched == False:
             print("{}. *  {:<35} - {:>4} ({}).".format(count + 1, movie.title, movie.category, movie.year))
         else:
             print("{}.    {:<35} - {:>4} ({}).".format(count + 1, movie.title, movie.category, movie.year))
@@ -67,24 +67,6 @@ def all_movies():
     else:
         print(" {} movies watched, No more movies to watch!".format(watch_movies))
     print("")
-
-
-# count unwatch movies
-def count_unwatch():
-    still_to_watch = 0
-    for i in range(len(movies)):
-        if movies[i][3] == "u":
-            still_to_watch += 1
-    return still_to_watch
-
-
-# Count watch movies
-def count_watch():
-    watch_movies = 0
-    for i in range(len(movies)):
-        if movies[i][3] == "w":
-            watch_movies += 1
-    return watch_movies
 
 
 # Add new movies to list of movies.csv file
@@ -108,12 +90,14 @@ def add_movies():
             print("Invalid input, please enter a valid number.")
 
     new_category = input("Category :")
+    category_filter = ["Action", "Comedy", "Documentary", "Drama", "Fanstay", "Thriller"]
     while not new_category:  # Check user input for blank
         print("Input can not be blank")
         new_category = input("Category :")
+
     # store user input of new data as nested list
-    moviecollection.add_movie(Movie(new_name, new_year, new_category, "u"))
-    #sorting.. code here
+    moviecollection.add_movie(Movie(new_name, new_year, new_category, False))
+    moviecollection.sort("category")
     print("{:s} ({:s} from {:d}) added to movie ".format(new_name, new_category, new_year))
     print("")
 
@@ -124,21 +108,21 @@ def watch_list():
     try:
         valid = False
         while not valid:
-            still_to_watch = count_unwatch()
+            still_to_watch = moviecollection.get_unwatched()
             if still_to_watch > 0:
                 select = int(input("Enter the number of a movie to mark as watched :"))
                 while select <= 0:
-                    print("Number must be greater than zero")
+                    print("Nulmber must be greater than zero")
                     select = int(input("Enter the number of a movie to mark as watched :"))
-                if select <= len(movies):
+                if select <= len(moviecollection.movies):
                     select -= 1
-                    if movies[select][3] != "w":
-                        movies[select][3] = 'w'
-                        print("{:s} from {:d} watched!".format(movies[select][0], movies[select][1]))
-
+                    movie = [movie for movie in moviecollection.movies]
+                    if movie[select].is_watched == False:
+                        movie[select].mark_watched()
+                        print("{:s} from {:s} watched!".format(movie[select].title, movie[select].category))
                         valid = True
                     else:
-                        print("You have already watched {}".format(movies[select][0]))
+                        print("You have already watched {}".format(movie[select].title))
                         valid = True
                 else:
                     print("Invalid movies number")

@@ -27,5 +27,9 @@ def run_tests():
     initial_movie.mark_unwatched()
     print(initial_movie)
 
+    print("............")
+    initial_movie.mark_watched()
+    print(initial_movie)
+
 
 run_tests()
