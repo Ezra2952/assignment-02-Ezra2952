@@ -16,6 +16,8 @@ def run_tests():
     print("Test loading movies:")
     movie_collection.load_movies('movies.csv')
     print(movie_collection)
+    print("Movie Colletion . movies")
+    print(movie_collection.movies)
     assert movie_collection.movies  # assuming CSV file is non-empty, non-empty list is considered True
 
     # Test adding a new Movie with values
