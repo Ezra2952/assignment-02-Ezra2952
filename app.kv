@@ -1,2 +1,93 @@
 # TODO: Create your Kivy layout in the kv language here
 BoxLayout:
+    orientation: "horizontal"
+
+    BoxLayout:
+        orientation: "vertical"
+        width: 220
+        size_hint_x: None
+
+
+        Label:
+            text: "Sort by:"
+            text_size: self.size
+            size_hint_y: 0.08
+            halign: 'center'
+
+        Spinner:
+            size_hint_max_y: 40
+            id: sorting_key_selection
+            text: app.current_spinner
+            values: app.sorting_keys
+            on_text: app.choose_key(self.text)
+
+        Label:
+            text: "Add New Movie..."
+            text_size: self.size
+            size_hint_y: 0.1
+            halign: 'center'
+
+        Label:
+            text: "Title"
+            text_size: self.size
+            size_hint_y: 0.1
+            halign: 'center'
+
+        TextInput:
+            id: input_title
+            size_hint_max_y: 60
+            text: ''
+            multiline: False
+            write_tab: False
+
+        Label:
+            text: "Category"
+            text_size: self.size
+            size_hint_y: 0.1
+            halign: 'center'
+
+        TextInput:
+            id: input_cate
+            size_hint_max_y: 60
+            text: ''
+            multiline: False
+            write_tab: False
+
+        Label:
+            text: "Year"
+            text_size: self.size
+            size_hint_y: 0.1
+            halign: 'center'
+
+        TextInput:
+            id: input_year
+            size_hint_max_y: 60
+            text: ''
+            multiline: False
+            write_tab: False
+        Button:
+            text: 'Add Movie'
+            size_hint_y: 0.1
+            on_press: app.add_movie()
+
+        Button:
+            text: 'Clear'
+            size_hint_y: 0.1
+            on_release: app.all_clear()
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: app.watched_status
+            text_size: self.size
+            size_hint_y: 0.1
+            halign: 'center'
+
+        BoxLayout:
+            orientation: 'vertical'
+            id: movies_box
+
+        Label:
+            size_hint_y: 0.1
+            text: app.message
