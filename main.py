@@ -123,6 +123,15 @@ class MoviesToWatchApp(App):
         self.all_clear()
         self.show_movie()
 
+    # clear all the fill box
+    def all_clear(self):
+        self.root.ids.input_title.text = ""
+        self.root.ids.input_cate.text = ""
+        self.root.ids.input_year.text = ""
+        self.message = ""
+
+    def stop_now(self):
+        self.movies.save_movies("movies.csv")
 
 
 MoviesToWatchApp().run()
