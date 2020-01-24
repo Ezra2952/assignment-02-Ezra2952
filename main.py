@@ -25,5 +25,22 @@ class MoviesToWatchApp(App):
     watched_status = StringProperty()
     sorting_keys = ListProperty()
 
+    # Construct the main app.
+    def __init__(self, **kwargs):
+        super(MoviesToWatchApp, self).__init__(**kwargs)
+        self.movies = MovieCollection()
+
+    # Create the main app
+    def build(self):
+        Window.size = (800, 500)
+        self.title = "Movies Watch system 3.1 by Kyaw Soe Naing "
+        self.root = Builder.load_file('app.kv')
+        self.sorting_keys = SORTING_KEY.keys()
+        self.current_spinner = self.sorting_keys[0]
+        self.movies.load_movies("movies.csv")
+        self.show_movie()
+        return self.root
+
+
 
 MoviesToWatchApp().run()
