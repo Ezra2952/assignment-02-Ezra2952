@@ -79,5 +79,11 @@ class MoviesToWatchApp(App):
         self.movies.sort(SORTING_KEY[self.current_spinner])
         self.show_movie()
 
+    # sort key for sorting
+    def choose_key(self, key):
+        self.current_spinner = key
+        self.show_movie()
+
+
 
 MoviesToWatchApp().run()
