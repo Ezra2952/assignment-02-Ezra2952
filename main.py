@@ -41,6 +41,43 @@ class MoviesToWatchApp(App):
         self.show_movie()
         return self.root
 
+    # Show the movie list
+    def show_movie(self):
+        count = 0
+        print(self.current_spinner)
+        self.movies.sort(SORTING_KEY[self.current_spinner])
+        self.root.ids.movies_box.clear_widgets()
+        for movie in self.movies.movies:
+            if movie.is_watched:
+                color = [0.3, 0.7, 0.9, 0.5]
+                mark = "watched"
+            else:
+                color = [0.8, 0.3, 1.0, 1]
+                mark = ""
+            movie_text = "{} ({} from {:d}) {}".format(movie.title, movie.category, movie.year, mark)
+            movie_button = Button(text=movie_text, id=str(count), background_color=color)
+            movie_button.bind(on_release=self.press_movie)
+            self.root.ids.movies_box.add_widget(movie_button)
+            count += 1
+        unwatched_number = self.movies.get_unwatched()
+        watched_number = self.movies.get_watched()
+        self.watched_status = "To watch: {:d}. Watched: {:d}".format(unwatched_number, watched_number)
+
+    # check watch and unwatch
+    def press_movie(self, instance):
+        """   """
+        movie_id = int(instance.id)
+        movie_data = self.movies.movies[movie_id]
+        movie_title = movie_data.title
+
+        if movie_data.is_watched:
+            movie_data.mark_unwatched()
+            self.message = "You need to watch {:s}".format(movie_title)
+        else:
+            movie_data.mark_watched()
+            self.message = "You have watched {:s}".format(movie_title)
+        self.movies.sort(SORTING_KEY[self.current_spinner])
+        self.show_movie()
 
 
 MoviesToWatchApp().run()
