@@ -2,7 +2,7 @@
 Name:Kyaw Soe Naing
 Date: 24 Jan 2020
 Brief Project Description:
-GitHub URL:
+GitHub URL: https://github.com/Ezra2952/assignment-02-Ezra2952
 """
 # TODO: Create your main program in this file, using the MoviesToWatchApp class
 from kivy.app import StringProperty
