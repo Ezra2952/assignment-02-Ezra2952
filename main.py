@@ -84,6 +84,45 @@ class MoviesToWatchApp(App):
         self.current_spinner = key
         self.show_movie()
 
+    # add new movie to movies
+    def add_movie(self):
+        m_title = self.root.ids.input_title.text
+        m_year = self.root.ids.input_year.text
+        m_category = self.root.ids.input_cate.text
+
+        m_title = m_title.strip()
+        m_year = m_year.strip()
+        m_category = m_category.strip().upper()
+
+        if (m_title == "") or (m_year == "") or (m_category == ""):
+            self.message = "All fields must be completed"
+            return
+
+        if not m_year.isdigit():
+            self.message = "Please enter a valid number"
+            return
+
+        m_year = int(m_year)
+        if m_year < 0:
+            self.message = "Year must be more than 0"
+        found = False
+        count = 0
+        for i in range(len(CATEGORY_LIST)):
+            if m_category == CATEGORY_LIST[i].upper():
+                found = True
+                count = i
+                break
+        if not found:
+            self.message = "The category must be one of Action, Comedy, Documentary, Drama, Fantasy, Thriller"
+            return
+        else:
+            m_category = CATEGORY_LIST[count]
+
+        new_movie = Movie(m_title, m_year, m_category)
+        self.movies.add_movie(new_movie)
+        self.all_clear()
+        self.show_movie()
+
 
 
 MoviesToWatchApp().run()
